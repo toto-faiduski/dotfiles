@@ -1,0 +1,1 @@
+conky -c /home/david/.config/conky/yoda.conkyrc & sleep 1s

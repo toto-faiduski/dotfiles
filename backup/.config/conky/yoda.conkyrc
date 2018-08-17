@@ -1,0 +1,125 @@
+--[[ conky configuration
+#                                  conkyrc_7a
+#
+#  author  : CAYMUS
+#  version : v20120420-07
+#  license : Distributed under the terms of GNU GPL version 2 or later
+#
+]]
+
+
+conky.config = {
+
+	background = true,
+	update_interval = 1,
+
+	cpu_avg_samples = 2,
+	net_avg_samples = 2,
+	temperature_unit = 'celsius',
+
+	double_buffer = true,
+	no_buffers = true,
+	text_buffer_size = 2048,
+
+	gap_x = 10,
+	gap_y = 30,
+	--minimum_size=190 700,
+	minimum_width = 190,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated','sticky','skip_taskbar','skip_pager','below',
+	border_inner_margin = 0,
+	border_outer_margin = 0,
+	alignment = 'top_right',
+
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = false,
+
+	override_utf8_locale = true,
+	use_xft = true,
+	font = '6x10:size=7,weight:normal',
+	xftalpha = 0.5,
+	uppercase = false,
+
+	default_color = '666666',
+	color1 = '888888',
+	color2 = 'AAAAAA',
+	color3 = 'DDDDDD',
+	color4 = 'CC3333',
+
+	lua_load = "~/.config/conky/LUA/yoda.lua",
+	lua_draw_hook_post = " main_bars"
+};
+
+conky.text = [[
+${font 6x10:size=12,weight:bold}${color #00FFFF}$nodename ${font 6x10:size=7,weight:bold}${color}$kernel on $machine
+
+${voffset 3}
+${font 6x10:size=12,weight:bold}${color}CPU
+${font 6x10:size=7,weight:normal}${color}core 1:${goto 50}${cpu cpu1}%
+${font 6x10:size=7,weight:normal}${color}core 2:${goto 50}${cpu cpu2}%
+
+${font 6x10:size=7,weight:normal}${color2}${top name 1}${alignr 10}${top pid 1}${alignr 1}${top cpu 1}%
+${font 6x10:size=7,weight:normal}${color}${top name 2}${alignr 10}${top pid 2}${alignr 1}${top cpu 2}%
+${font 6x10:size=7,weight:normal}${color}${top name 3}${alignr 10}${top pid 3}${alignr 1}${top cpu 3}%
+${font 6x10:size=7,weight:normal}${color}${threads} process 
+${cpugraph 10,100 AAAAAA AAAAAA}
+
+${voffset 3}
+${font 6x10:size=12,weight:bold}${color}MEM
+${font 6x10:size=7,weight:normal}${color}RAM ${goto 40}$mem
+${font 6x10:size=7,weight:normal}${color}SWAP ${goto 40}$swap
+
+${font 6x10:size=7,weight:normal}${color2}${top_mem name 1}${alignr 10}${top_mem pid 1}${alignr 1}${top_mem mem 1}%
+${font 6x10:size=7,weight:normal}${color}${top_mem name 2}${alignr 10}${top_mem pid 2}${alignr 1}${top_mem mem 2}%
+${font 6x10:size=7,weight:normal}${color}${top_mem name 3}${alignr 10}${top_mem pid 3}${alignr 1}${top_mem mem 3}%
+
+${voffset 3}
+${font 6x10:size=12,weight:bold}${color}DISKS
+${font 6x10:size=7,weight:normal}${color}/home${goto 45}${fs_used /home}
+${font 6x10:size=7,weight:normal}${color}/${goto 45}${fs_used /}
+${diskiograph 10,100 AAAAAA AAAAAA}
+
+${voffset 3}
+${font 6x10:size=12,weight:bold}${color}NET
+${color1}${font 6x10:size=7,weight:bold}enp0s3 ${addr enp0s3}
+${color}${font 6x10:size=7,weight:normal}Down: ${downspeed enp0s3}
+${color}${font 6x10:size=7,weight:normal}Up: ${upspeed enp0s3}
+Total Down: ${totaldown enp0s3}
+Total Up: ${totalup enp0s3}
+
+${font 6x10:size=7,weight:bold}${color}open ports:   ${tcp_portmon 1 65535 count}
+${font 6x10:size=7,weight:bold}${color}${offset 10}URL${alignr 1}PORT
+]];
+
+for v = 0,19 do
+	conky.text = conky.text .. [[${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost ]] .. v .. [[} ${alignr 1} ${tcp_portmon 1 65535 rport ]] .. v .. [[ }
+]]
+end
+
+
+--[[
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 0} ${alignr 1} ${tcp_portmon 1 65535 rport 0}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 1} ${alignr 1} ${tcp_portmon 1 65535 rport 1}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 2} ${alignr 1} ${tcp_portmon 1 65535 rport 2}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 3} ${alignr 1} ${tcp_portmon 1 65535 rport 3}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 4} ${alignr 1} ${tcp_portmon 1 65535 rport 4}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 5} ${alignr 1} ${tcp_portmon 1 65535 rport 5}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 6} ${alignr 1} ${tcp_portmon 1 65535 rport 6}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 7} ${alignr 1} ${tcp_portmon 1 65535 rport 7}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 8} ${alignr 1} ${tcp_portmon 1 65535 rport 8}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 9} ${alignr 1} ${tcp_portmon 1 65535 rport 9}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 10} ${alignr 1} ${tcp_portmon 1 65535 rport 10}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 11} ${alignr 1} ${tcp_portmon 1 65535 rport 11}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 12} ${alignr 1} ${tcp_portmon 1 65535 rport 12}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 13} ${alignr 1} ${tcp_portmon 1 65535 rport 13}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 14} ${alignr 1} ${tcp_portmon 1 65535 rport 14}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 15} ${alignr 1} ${tcp_portmon 1 65535 rport 15}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 16} ${alignr 1} ${tcp_portmon 1 65535 rport 16}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 17} ${alignr 1} ${tcp_portmon 1 65535 rport 17}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 18} ${alignr 1} ${tcp_portmon 1 65535 rport 18}
+${font 6x10:size=7,weight:normal}${color1}${tcp_portmon 1 65535 rhost 19} ${alignr 1} ${tcp_portmon 1 65535 rport 19}
+]]
