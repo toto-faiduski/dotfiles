@@ -1,5 +1,6 @@
 ## Test page !
 Hello bob...
+Site URL: {{ site.url }}
 
 <ul>
   {% for post in site.posts %}
