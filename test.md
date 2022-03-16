@@ -1,5 +1,8 @@
 ## Test page !
 Hello bob...
+
+Site source: {{ site.source }}
+
 Site URL: {{ site.url }}
 
 <ul>
