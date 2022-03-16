@@ -1,7 +1,7 @@
 ## Test page !
 Hello bob...
 
-Site source: {{ site.source }}
+Site baseurl: {{ site.baseurl }}
 
 Site URL: {{ site.url }}
 
